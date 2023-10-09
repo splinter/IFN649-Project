@@ -1,4 +1,4 @@
-from table_clients.plants import PlantRepository
+from table_clients.plants import create_plant,Plant
 
 def from_event(event):
     data = event.data
@@ -8,7 +8,8 @@ def from_event(event):
     return plant
 
 def lambda_handler(event,context):
-    PlantRepository.create()
+    plant = Plant(plantID="1", deviceID="2")
+    create_plant(plant)
     res = {
         "status": 200
     }
