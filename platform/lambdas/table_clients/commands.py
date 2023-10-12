@@ -53,7 +53,6 @@ def update_command_status(command):
         TableName=TABLE_NAME,
         Key= {
             "deviceID": command.deviceID,
-            "plantID": command.plantID,
             "commandID": command.commandID
         },
         Item={
@@ -67,8 +66,18 @@ def update_command_status(command):
     )
     return
 
+keys = ["plantID","deviceID","commandID","code","status","lastUpdate"]
+sKey ="S"
+def converter(map):
+    item = {}
+    for key in keys:
+        if key in map:
+            item[key]=map[key][sKey]
+    return item 
+
+
 def list_commands(deviceID):
-    commands = client.query(
+    result = client.query(
         TableName=TABLE_NAME,
         KeyConditionExpression="deviceID=:deviceID",
         ExpressionAttributeValues={
@@ -77,4 +86,8 @@ def list_commands(deviceID):
             }
         }
     )
-    return commands
+    items = result["Items"]
+    data = []
+    for item in items:
+        data.append(converter(item))
+    return data

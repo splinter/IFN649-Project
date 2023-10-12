@@ -22,5 +22,4 @@ def process_serial_updates():
         time.sleep()
 
 def start_communication_with_arduino():
-    
     return

@@ -18,4 +18,7 @@ cp -r platform/lambdas/table_clients/* bin/commands_list/table_clients
 cp -r platform/lambdas/command_list/* bin/commands_list
 
 
-
+mkdir bin/command_update
+mkdir bin/command_update/table_clients
+cp -r platform/lambdas/table_clients/* bin/command_update/table_clients
+cp -r platform/lambdas/command_update/* bin/command_update
