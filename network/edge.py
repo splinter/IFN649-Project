@@ -13,6 +13,7 @@ def recieve_network_updates():
     return
 
 def recieve_serial_updates():
+    
     while True:
         time.sleep()
 
@@ -21,4 +22,5 @@ def process_serial_updates():
         time.sleep()
 
 def start_communication_with_arduino():
+    
     return

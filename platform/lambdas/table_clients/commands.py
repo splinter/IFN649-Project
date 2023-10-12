@@ -14,6 +14,7 @@ class Command:
     def __init__(self):
         self.deviceID = ""
         self.ownerID = ""
+        self.commandID =""
         self.code = ""
         self.status = ""
         self.plantId = ""
@@ -25,8 +26,11 @@ def create_command(command):
     client.put_item(
         TableName=TABLE_NAME,
         Item={
+            "commandID": {
+                "S": command.commandID
+            },
             "plantID":{
-                "S": command.plantID
+                "S": command.plantId
             },
             "deviceID": {
                 "S": command.deviceID
@@ -49,7 +53,8 @@ def update_command_status(command):
         TableName=TABLE_NAME,
         Key= {
             "deviceID": command.deviceID,
-            "plantID": command.plantID
+            "plantID": command.plantID,
+            "commandID": command.commandID
         },
         Item={
             "status": {
@@ -67,7 +72,7 @@ def list_commands(deviceID):
         TableName=TABLE_NAME,
         KeyConditionExpression="deviceID=:deviceID",
         ExpressionAttributeValues={
-            "deviceID": {
+            ":deviceID": {
                 "S": deviceID
             }
         }

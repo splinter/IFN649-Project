@@ -22,7 +22,7 @@ def push_update_commands():
 
     while True:
         commandStatus = outQ.get()
-        result = update_command(deviceID="", commandID=commandStatus.deviceID, status=commandStatus.status)
+        result = update_command(deviceID="", commandID=commandStatus.commandID, status=commandStatus.status)
         if result is True:
             logging.info("Successfully updated command status")
     return
@@ -36,18 +36,20 @@ def send_hearbeat():
         time.sleep(heartbeat)
     return
 
-def start():
 
+def start():
+    
     commands=threading.Thread(target=poll_server_for_commands)
     commandsUpdate = threading.Thread(target=push_update_commands)
+    arduino=threading.Thread(target=heartbeat_device)
 
-    device= threading.Thread(target=send_hearbeat)
+    deviceHeartbeat= threading.Thread(target=send_hearbeat)
     
     commands.start()
     logging.info("Started thread to fetch new commands")
     commandsUpdate.start()
     logging.info("Started thread to update commands")
-    device.start()
+    deviceHeartbeat.start()
     return
 
 start()

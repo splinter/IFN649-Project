@@ -3,9 +3,8 @@ import json
 from table_clients.commands import list_commands
 
 def get_device_id(event):
-    bodyStr = event.body
-    body = json.loads(bodyStr)
-    return body["deviceID"]
+    query = event["queryStringParameters"]
+    return query["deviceID"]
 
 def lambda_handler(event,context):
     deviceID = get_device_id(event)    
