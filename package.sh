@@ -22,3 +22,8 @@ mkdir bin/command_update
 mkdir bin/command_update/table_clients
 cp -r platform/lambdas/table_clients/* bin/command_update/table_clients
 cp -r platform/lambdas/command_update/* bin/command_update
+
+mkdir bin/plant_data_update
+mkdir bin/plant_data_update/table_clients
+cp -r platform/lambdas/plant_data_update/* bin/plant_data_update/table_clients
+cp -r platform/lambdas/plant_data_update/* bin/plant_data_update

@@ -4,6 +4,7 @@ import logging
 from clients.commands import fetch_commands,update_command
 from network.commands import get_input_commands_queue, get_output_commands_queue
 from network.device import heartbeat_device
+from network.edge import start_communication_with_arduino
 
 commandPollingInterval=10
 heartbeat=60*5
@@ -41,6 +42,7 @@ def start():
     
     commands=threading.Thread(target=poll_server_for_commands)
     commandsUpdate = threading.Thread(target=push_update_commands)
+
     arduino=threading.Thread(target=heartbeat_device)
 
     deviceHeartbeat= threading.Thread(target=send_hearbeat)
@@ -50,6 +52,7 @@ def start():
     commandsUpdate.start()
     logging.info("Started thread to update commands")
     deviceHeartbeat.start()
+    # start_communication_with_arduino()
     return
 
 start()

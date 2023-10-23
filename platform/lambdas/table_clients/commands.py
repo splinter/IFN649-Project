@@ -1,5 +1,6 @@
 import boto3
 import time
+import datetime
 
 client = boto3.client("dynamodb")
 TABLE_NAME = "IOT-Commands"
@@ -52,15 +53,23 @@ def update_command_status(command):
     client.update_item(
         TableName=TABLE_NAME,
         Key= {
-            "deviceID": command.deviceID,
-            "commandID": command.commandID
+            "deviceID": {
+                "S":str(command.deviceID)
+            },
+            "commandID": {
+                "S": str(command.commandID)
+            }
         },
-        Item={
+        AttributeUpdates={
             "status": {
-                "S": command.status
+                "Value": {
+                    "S": command.status
+                }
             },
             "lastUpdate": {
-                "S": ""
+                "Value": {
+                    "S": str(time.localtime())
+                }
             }
         }
     )
