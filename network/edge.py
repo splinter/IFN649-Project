@@ -53,5 +53,3 @@ def start_communication_with_arduino():
     while True:
         time.sleep(1)
     return
-
-start_communication_with_arduino()
