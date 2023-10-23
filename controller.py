@@ -52,7 +52,7 @@ def start():
     commandsUpdate.start()
     logging.info("Started thread to update commands")
     deviceHeartbeat.start()
-    # start_communication_with_arduino()
+    start_communication_with_arduino()
     return
 
 start()
