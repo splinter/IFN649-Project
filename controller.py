@@ -13,8 +13,10 @@ def poll_server_for_commands():
     inQ = get_input_commands_queue()
     while True:
         commands = fetch_commands()
+        
         if len(commands) > 0:
-            inQ.put(commands)
+            for command in commands:
+                inQ.put(command)
         time.sleep(commandPollingInterval)
     return
 
