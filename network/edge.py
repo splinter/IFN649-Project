@@ -36,6 +36,7 @@ def recieve_serial_updates():
             recieve_teensy(ser)
         if sendCommandQueue.not_empty:
             command = sendCommandQueue.get()
+            logging.info("Sending command " + command)
             ser.write(str.encode(command+"\r\n"))
         time.sleep(5)
 
