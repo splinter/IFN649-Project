@@ -24,20 +24,24 @@ def recieve_network_updates():
         sendCommandQueue.put(command)
     return
 
+def build_command(command):
+    code = command["code"]
+    return "CMD " + code
+
 def recieve_serial_updates():
     try:
         ser = serial.Serial(port,9600)
     except Exception:
         logging.error("Unable to create serial connection with teensy board.")
         return
-
+    logging.info("Staring serial communication with arduino")
     while True:
         if ser.in_waiting:
             recieve_teensy(ser)
         if sendCommandQueue.not_empty:
             command = sendCommandQueue.get()
-            logging.info("Sending command " + command)
-            ser.write(str.encode(command+"\r\n"))
+            cmd = "CMD " + command["code"]
+            ser.write(str.encode(cmd+"\r\n"))
         time.sleep(5)
 
 def process_serial_updates():
@@ -48,6 +52,7 @@ def process_serial_updates():
 def start_communication_with_arduino():
     serialThread = threading.Thread(target=recieve_serial_updates)
     commandsThread = threading.Thread(target=recieve_network_updates)
+
     serialThread.start()
     commandsThread.start()
     while True:
