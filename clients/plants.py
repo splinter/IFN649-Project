@@ -6,7 +6,7 @@ configs = configparser.ConfigParser()
 configs.read("clients.ini")
 
 def update_plant_data(deviceID,plantID, humidity):
-    endpoint = configs["default"]["endpoint"] + "/plants/sensor?deviceID=1"
+    endpoint = configs["default"]["endpoint"] + "/plants/sensors?deviceID=1"
     results = requests.put(endpoint,data= {
         "deviceID": deviceID,
         "plantID": plantID,
