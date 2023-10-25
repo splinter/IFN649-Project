@@ -17,8 +17,6 @@ def poll_server_for_commands(scheduler ):
         commands = fetch_commands()
         if len(commands) > 0:
             scheduler.register_command(commands)
-            for command in commands:
-                inQ.put(command)
         time.sleep(commandPollingInterval)
     return
 
