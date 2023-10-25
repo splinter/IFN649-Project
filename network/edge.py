@@ -40,7 +40,7 @@ def recieve_serial_updates():
             recieve_teensy(ser)
         if sendCommandQueue.not_empty:
             command = sendCommandQueue.get()
-            cmd = "CMD " + command["code"]
+            cmd = "CMD " + command
             ser.write(str.encode(cmd+"\r\n"))
         time.sleep(5)
 
