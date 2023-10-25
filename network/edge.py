@@ -38,7 +38,7 @@ def recieve_serial_updates():
     while True:
         if ser.in_waiting:
             recieve_teensy(ser)
-        if sendCommandQueue.not_empty:
+        if sendCommandQueue.qsize() == 0:
             command = sendCommandQueue.get()
             logging.info("Recieved command to send to edge " + command)
             cmd = "CMD " + command
