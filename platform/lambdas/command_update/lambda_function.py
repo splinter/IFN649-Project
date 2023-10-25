@@ -8,10 +8,12 @@ def get_command(event):
     commandID = body["commandID"]
     deviceID = body["deviceID"]
     status = body["status"]
+    code =body["code"]
     command = Command()
     command.commandID=commandID
     command.deviceID = deviceID
     command.status = status
+    command.code = code
     return command
 
 def lambda_handler(event,context):

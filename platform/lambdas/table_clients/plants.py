@@ -6,19 +6,18 @@ TABLE_NAME = "IOT-Plants"
 
 
 class PlantData:
-    def __init__(self, plantID, deviceID, ownerID):
+    def __init__(self, plantID, deviceID):
         self.plantID = plantID
         self.deviceID = deviceID
-        self.ownerID = ownerID
         self.soilTemperature = ""
         self.humidity = ""
-        self.time = str(time.now())
+        self.time = str(time.time())
         pass
 
 
 
 def create_plant_data(plantData):
-    client.create_item(
+    client.put_item(
         TableName=TABLE_NAME,
         Item={
             "plantID":{
@@ -27,14 +26,11 @@ def create_plant_data(plantData):
             "deviceID": {
                 "S": plantData.deviceID
             },
-            "ownerID":{
-                "S": plantData.ownerID
-            },
             "soilTemperature": {
-                "N": str(plantData.soilTemperature)
+                "S": str(plantData.soilTemperature)
             },
             "humidity": {
-                "N": str(plantData.humidity)
+                "S": str(plantData.humidity)
             },
             "time": {
                 "S": plantData.time
@@ -43,4 +39,23 @@ def create_plant_data(plantData):
     )
     return 
 
+keys = ["plantID","deviceID","commandID","code","status","lastUpdate"]
+sKey ="S"
+def converter(map):
+    item = {}
+    for key in keys:
+        if key in map:
+            item[key]=map[key][sKey]
+    return item 
+def get_plant_data(deviceID):
+    results=client.query(
+        TableName=TABLE_NAME,
+        KeyConditionExpression="deviceID=:deviceID",
+        ExpressionAttributeValues={
+            ":deviceID":{
+                "S": deviceID
+            }
+        }       
+    )
+    return
 

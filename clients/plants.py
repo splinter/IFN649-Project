@@ -1,8 +1,15 @@
 import logging
 import requests
+import configparser
 
-host=""
+configs = configparser.ConfigParser()
+configs.read("clients.ini")
 
-class PlantClient:
-    def register_plant(self):
-        pass 
+def update_plant_data(deviceID,plantID, humidity):
+    endpoint = configs["default"]["endpoint"] + "/plants/sensor?deviceID=1"
+    results = requests.put(endpoint,data= {
+        "deviceID": deviceID,
+        "plantID": plantID,
+        "humidity": humidity
+    })
+    return
