@@ -6,7 +6,7 @@ from network.commands import get_input_commands_queue, get_output_commands_queue
 from network.device import heartbeat_device
 from network.edge import start_communication_with_arduino
 from scheduling.commands import Scheduler
-from telemtry.sensor import SensorTelemetry
+from telemetry.sensor import SensorTelemetry
 
 commandPollingInterval=10
 heartbeat=60*5
