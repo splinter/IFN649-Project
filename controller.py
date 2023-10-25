@@ -42,6 +42,7 @@ def send_hearbeat():
 
 def start():
     scheduler= Scheduler()
+    sensorTelemetry = SensorTelemetry()
     commands=threading.Thread(target=poll_server_for_commands,args=[scheduler])
     commandsUpdate = threading.Thread(target=push_update_commands)
 
@@ -52,6 +53,9 @@ def start():
 
     schedulerThread= threading.Thread(target=scheduler.schedule)
     schedulerThread.start()
+
+    s = threading.Thread(target=sensorTelemetry.read_send)
+    s.start()
     
     commands.start()
     logging.info("Started thread to fetch new commands")
